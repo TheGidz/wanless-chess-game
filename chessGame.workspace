@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Workspace Name="chessGame" Database="" Version="10000">
+  <Project Name="ChessGame" Path="ChessGame/ChessGame.project" Active="Yes"/>
+  <Project Name="SudokuSolver" Path="../Sudoku solver/SudokuSolver/SudokuSolver.project" Active="No"/>
+  <BuildMatrix>
+    <WorkspaceConfiguration Name="Debug">
+      <Environment/>
+      <Project Name="ChessGame" ConfigName="Debug"/>
+      <Project Name="SudokuSolver" ConfigName="Debug"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="Release">
+      <Environment/>
+      <Project Name="ChessGame" ConfigName="Debug"/>
+      <Project Name="SudokuSolver" ConfigName="Debug"/>
+    </WorkspaceConfiguration>
+  </BuildMatrix>
+</CodeLite_Workspace>

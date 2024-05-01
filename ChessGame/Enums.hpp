@@ -1,0 +1,22 @@
+#ifndef ENUMS_H_
+#define ENUMS_H_
+
+enum GamePieceType
+{
+	GAME_PIECE_KING,
+	GAME_PIECE_QUEEN,
+	GAME_PIECE_BISHOP,
+	GAME_PIECE_KNIGHT,
+	GAME_PIECE_ROOK,
+	GAME_PIECE_PAWN,
+	GAME_PIECE_COUNT,
+};
+
+enum Player
+{
+	PLAYER_WHITE,
+	PLAYER_BLACK,
+	PLAYER_COUNT,
+};
+
+#endif /* ENUMS_H_ */
