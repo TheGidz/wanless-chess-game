@@ -1,0 +1,26 @@
+C:\Users\Gideon\Documents\ariClassStuff\CLearning\Sudoku solver\SudokuSolver\board.h
+C:\Users\Gideon\Documents\ariClassStuff\CLearning\Sudoku solver\SudokuSolver\nonet.h
+C:\Users\Gideon\Documents\ariClassStuff\CLearning\Sudoku solver\SudokuSolver\main.cpp
+C:\Users\Gideon\Documents\ariClassStuff\CLearning\Sudoku solver\SudokuSolver\design.txt
+C:\Users\Gideon\Documents\ariClassStuff\CLearning\Sudoku solver\SudokuSolver\board.cpp
+C:\Users\Gideon\Documents\ariClassStuff\CLearning\Sudoku solver\SudokuSolver\nonet.cpp
+C:\Users\Gideon\Documents\ariClassStuff\CLearning\chessGame\ChessGame\game_board.h
+C:\Users\Gideon\Documents\ariClassStuff\CLearning\chessGame\ChessGame\pawn.h
+C:\Users\Gideon\Documents\ariClassStuff\CLearning\chessGame\ChessGame\game_piece.h
+C:\Users\Gideon\Documents\ariClassStuff\CLearning\chessGame\ChessGame\rook.h
+C:\Users\Gideon\Documents\ariClassStuff\CLearning\chessGame\ChessGame\queen.h
+C:\Users\Gideon\Documents\ariClassStuff\CLearning\chessGame\ChessGame\game.cpp
+C:\Users\Gideon\Documents\ariClassStuff\CLearning\chessGame\ChessGame\bishop.cpp
+C:\Users\Gideon\Documents\ariClassStuff\CLearning\chessGame\ChessGame\knight.h
+C:\Users\Gideon\Documents\ariClassStuff\CLearning\chessGame\ChessGame\king.cpp
+C:\Users\Gideon\Documents\ariClassStuff\CLearning\chessGame\ChessGame\game_piece.cpp
+C:\Users\Gideon\Documents\ariClassStuff\CLearning\chessGame\ChessGame\game.h
+C:\Users\Gideon\Documents\ariClassStuff\CLearning\chessGame\ChessGame\queen.cpp
+C:\Users\Gideon\Documents\ariClassStuff\CLearning\chessGame\ChessGame\rook.cpp
+C:\Users\Gideon\Documents\ariClassStuff\CLearning\chessGame\ChessGame\main.cpp
+C:\Users\Gideon\Documents\ariClassStuff\CLearning\chessGame\ChessGame\king.h
+C:\Users\Gideon\Documents\ariClassStuff\CLearning\chessGame\ChessGame\pawn.cpp
+C:\Users\Gideon\Documents\ariClassStuff\CLearning\chessGame\ChessGame\game_board.cpp
+C:\Users\Gideon\Documents\ariClassStuff\CLearning\chessGame\ChessGame\knight.cpp
+C:\Users\Gideon\Documents\ariClassStuff\CLearning\chessGame\ChessGame\desgin.txt
+C:\Users\Gideon\Documents\ariClassStuff\CLearning\chessGame\ChessGame\bishop.h
