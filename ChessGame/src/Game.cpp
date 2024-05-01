@@ -21,7 +21,7 @@ void Game::promotion(GameBoard *masterBoard, int endRow, int endColumn)
 		std::cin >> answer;
 		if (answer.size() == 1)
 		{
-			switch (toupper(answer.at(0)))
+			switch (toupper(answer.at(0))) // TODO: This could be streamlined
 			{
 			case 'R':
 				delete masterBoard->board[endRow][endColumn];
@@ -389,7 +389,8 @@ void Game::getNextMove(GameBoard *masterBoard)
 	{
 	make_selection: // TODO: Remove goto, this is nasty
 		masterBoard->printBoard();
-		std::cout << "\nPlease enter the ROW/COLUMN " << m_playerTurn << "'s piece to move is on: ";
+		std::string player = (m_playerTurn == Player::PLAYER_WHITE) ? "White" : "Red";
+		std::cout << "\nPlease enter the ROW/COLUMN " << player << "'s piece to move is on: ";
 		int startRow{-1};
 		int startColumn{-1};
 		processInput(startRow, startColumn);
@@ -405,7 +406,7 @@ void Game::getNextMove(GameBoard *masterBoard)
 			goto make_selection;
 		}
 
-		std::cout << "Please enter the ROW/COLUMN to move your " << masterBoard->board[startRow][startColumn]->getPieceType() << " to: ";
+		std::cout << "Please enter the ROW/COLUMN to move your " << masterBoard->board[startRow][startColumn]->getPieceTypeChar() << " to: ";
 		int endRow{-1};
 		int endColumn{-1};
 		processInput(endRow, endColumn);

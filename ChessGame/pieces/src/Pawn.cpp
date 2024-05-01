@@ -42,7 +42,7 @@ bool Pawn::moveIsLegal(GamePiece *board[8], int newRow, int newColumn, bool verb
 	}
 
 	// movement logic for white pawns
-	if (this->getOwner() == 'W')
+	if (this->getOwner() == Player::PLAYER_WHITE) // TODO: There needs to be a universal way to handle this board's ups/downs so we don't need a black and white version of this code
 	{
 		// First move as a double move logic
 		if ((newColumn == currentColumn) && (newRow == (currentRow + 2)))
@@ -86,7 +86,7 @@ bool Pawn::moveIsLegal(GamePiece *board[8], int newRow, int newColumn, bool verb
 	}
 
 	// movement logic for black pawns
-	if (this->getOwner() == 'B')
+	if (this->getOwner() == Player::PLAYER_BLACK)
 	{
 		// First move is a double move
 		if ((newColumn == currentColumn) && (newRow == (currentRow - 2)))

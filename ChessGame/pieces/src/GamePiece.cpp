@@ -3,7 +3,8 @@
 GamePiece::GamePiece() : m_owner{Player::PLAYER_COUNT},
 						 m_pieceType{GamePieceType::GAME_PIECE_COUNT},
 						 m_hasMoved{false},
-						 m_enPassant{false}
+						 m_enPassant{false},
+						 m_pieceTypeChar('X')
 {
 	std::cerr << "An error has occured, and a GamePiece object without a kind or owner associated has somehow been created.\n";
 }
@@ -11,7 +12,8 @@ GamePiece::GamePiece() : m_owner{Player::PLAYER_COUNT},
 GamePiece::GamePiece(Player player, GamePieceType pieceType) : m_owner{player},
 															   m_pieceType{pieceType},
 															   m_hasMoved{false},
-															   m_enPassant{false}
+															   m_enPassant{false},
+															   m_pieceTypeChar(getPieceTypeChar())
 {
 }
 
@@ -27,34 +29,63 @@ bool GamePiece::moveIsLegal(GamePiece *board[8], int column, int row, bool verbo
 
 bool GamePiece::getEnPassant()
 {
-	return this->m_enPassant;
+	return m_enPassant;
 }
 
 void GamePiece::setEnPassant(bool setting)
 {
-	this->m_enPassant = setting;
+	m_enPassant = setting;
 	return;
 }
 
 bool GamePiece::getHasMoved()
 {
-	return this->m_hasMoved;
+	return m_hasMoved;
 }
 
 void GamePiece::setHasMoved(bool setting)
 {
-	this->m_hasMoved = setting;
+	m_hasMoved = setting;
 	return;
 }
 
 GamePieceType GamePiece::getPieceType()
 {
-	return this->m_pieceType;
+	return m_pieceType;
+}
+
+char GamePiece::getPieceTypeChar()
+{
+	char retVal = '0';
+	switch (m_pieceType)
+	{
+	case GAME_PIECE_BISHOP:
+		retVal = 'B';
+		break;
+	case GAME_PIECE_QUEEN:
+		retVal = 'Q';
+		break;
+	case GAME_PIECE_KING:
+		retVal = 'K';
+		break;
+	case GAME_PIECE_KNIGHT:
+		retVal = 'H';
+		break;
+	case GAME_PIECE_PAWN:
+		retVal = 'P';
+		break;
+	case GAME_PIECE_ROOK:
+		retVal = 'R';
+		break;
+	default:
+		break;
+	}
+	return retVal;
 }
 
 Player GamePiece::getOwner()
 {
-	return this->m_owner;
+	return m_owner;
 }
 
 bool GamePiece::inBounds(int row, int column, bool verbose)
@@ -244,52 +275,8 @@ bool GamePiece::legalStraight(GamePiece *board[8], int new_row, int new_column, 
 
 void GamePiece::printPiece(std::ostream &os) const
 {
-	//	if (this == nullptr) {
-	//		os << 'X';
-	//		return;
-	//	}
 	char owner = (m_owner == Player::PLAYER_WHITE) ? 'W' : 'B';
-	char pieceType = GamePieceType::GAME_PIECE_COUNT;
-	switch (m_pieceType)
-	{
-	case GamePieceType::GAME_PIECE_PAWN:
-	{
-		pieceType = 'P';
-		break;
-	}
-	case GamePieceType::GAME_PIECE_ROOK:
-	{
-		pieceType = 'R';
-		break;
-	}
-	case GamePieceType::GAME_PIECE_KNIGHT:
-	{
-		pieceType = 'H';
-		break;
-	}
-	case GamePieceType::GAME_PIECE_BISHOP:
-	{
-		pieceType = 'B';
-		break;
-	}
-	case GamePieceType::GAME_PIECE_QUEEN:
-	{
-		pieceType = 'Q';
-		break;
-	}
-	case GamePieceType::GAME_PIECE_KING:
-	{
-		pieceType = 'K';
-		break;
-	}
-	default:
-	{
-		// ERROR CONDITION
-		pieceType = 'X';
-		break;
-	}
-	}
-	os << owner << pieceType;
+	os << owner << m_pieceTypeChar;
 	return;
 }
 

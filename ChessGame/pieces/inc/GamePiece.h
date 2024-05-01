@@ -10,6 +10,7 @@ private:
 	GamePiece();
 	const Player m_owner;
 	const GamePieceType m_pieceType;
+	const char m_pieceTypeChar;
 	bool m_hasMoved;
 	bool m_enPassant;
 
@@ -22,6 +23,7 @@ public:
 	bool legalStraight(GamePiece *board[8], int newRow, int newColumn, int currentRow, int currentColumn, bool verbose);
 	bool getEnPassant();
 	bool getHasMoved();
+	char getPieceTypeChar();
 	GamePieceType getPieceType();
 	Player getOwner();
 	void setEnPassant(bool setting);

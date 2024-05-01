@@ -53,69 +53,67 @@ GameBoard::~GameBoard()
 
 void GameBoard::printBoard()
 {
-	std::cout << "          A   B   C   D   E   F   G   H\n\n";
-
-	for (size_t i = 0; i < m_boardSize; i++)
+	printf("\033[2J");
+	// Show the column letters
+	uint8_t letterPos = 11;
+	for (size_t squareIndex = 1; squareIndex <= m_boardSize; squareIndex++)
 	{
-		for (int k = 0; k < 3; k++)
+		char charToPrint = 64;
+		printf("\033[39\033[%d;%dH%c", 0, letterPos + ((squareIndex - 1) * m_squareWidth), (charToPrint + squareIndex));
+	}
+
+	// Show the row numbers
+	uint8_t numberPos = 4;
+	for (size_t squareIndex = 1; squareIndex <= m_boardSize; squareIndex++)
+	{
+		char charToPrint = '0';
+		printf("\033[%d;%dH%c", numberPos + ((squareIndex - 1) * m_squareHeight), 0, (charToPrint + squareIndex));
+	}
+
+	// Print the board by squares
+	for (size_t squareHorizontalIndex = 1; squareHorizontalIndex <= m_boardSize; squareHorizontalIndex++)
+	{
+		for (size_t squareVerticalIndex = 1; squareVerticalIndex <= m_boardSize; squareVerticalIndex++)
 		{
-			if (k == 1)
+			// Set the square colour
+			uint8_t printColourFore = 36;
+			if ((squareVerticalIndex + squareHorizontalIndex) % 2 == 1)
 			{
-				std::cout << "   " << i + 1 << "    ";
-			}
+				printColourFore = 31;
+			} // Red
 			else
 			{
-				std::cout << "        ";
-			}
-			for (size_t j = 0; j < m_boardSize; j++)
-			{
-				switch (k)
-				{
-				case 0:
-				case 2:
-					if ((i + j) % 2 == 0)
-					{
-						for (int i = 1; i < 5; i++)
-						{
-							std::cout << '#';
-						}
-					}
-					else
-					{
-						for (int i = 1; i < 5; i++)
-						{
-							std::cout << ' ';
-						}
-					}
-					break;
+				printColourFore = 37;
+			} // White
 
-				case 1:
-					if ((i + j) % 2 == 0)
-					{
-						if (this->board[i][j] == nullptr)
-						{
-							std::cout << "####";
-						}
-						else
-						{
-							std::cout << '#' << *this->board[i][j] << '#';
-						}
-					}
-					else
-					{
-						if (this->board[i][j] == nullptr)
-						{
-							std::cout << "    ";
-						}
-						else
-						{
-							std::cout << ' ' << *this->board[i][j] << ' ';
-						}
-					}
-					break;
+			for (size_t squareHeight = 1; squareHeight <= m_squareHeight; squareHeight++)
+			{
+				for (size_t squareWidth = 1; squareWidth <= m_squareWidth; squareWidth++)
+				{
+					size_t rowOffset = ((squareHorizontalIndex - 1) * m_squareHeight) + m_borderHeight;
+					size_t columnOffset = ((squareVerticalIndex - 1) * m_squareWidth) + m_borderWidth;
+					printf("\033[%dm\033[%d;%dH#", printColourFore, (rowOffset + squareHeight), (columnOffset + squareWidth));
 				}
 			}
-			std::cout << std::endl;
+		}
+
+		// Print the pieces which are on the board
+		for (size_t boardHorizInx = 0; boardHorizInx < m_boardSize; boardHorizInx++)
+		{
+			for (size_t boardVertInx = 0; boardVertInx < m_boardSize; boardVertInx++)
+			{
+				if (this->board[boardHorizInx][boardVertInx] != nullptr)
+				{
+					char piece = (this->board[boardHorizInx][boardVertInx]->getPieceTypeChar());
+					uint8_t pieceColour = (this->board[boardHorizInx][boardVertInx]->getOwner() == Player::PLAYER_WHITE) ? 37 : 31;
+
+					size_t rowOffset = ((boardHorizInx + 1) * m_squareHeight) + m_borderHeight - (m_squareHeight / 2);
+					size_t columnOffset = ((boardVertInx + 1) * m_squareWidth) + m_borderWidth - (m_squareHeight / 2);
+
+					printf("\033[%dm\033[%d;%dH%c", pieceColour, (rowOffset), (columnOffset), piece);
+				}
+			}
 		}
 	}
+	printf("\033[37m\033[%d;%dH", m_boardSize * m_squareHeight + m_borderHeight * 2, 0);
 }
