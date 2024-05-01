@@ -1,1 +1,1 @@
-Debug/bishop.cpp.o Debug/queen.cpp.o Debug/game_board.cpp.o Debug/rook.cpp.o Debug/king.cpp.o Debug/pawn.cpp.o Debug/game.cpp.o Debug/knight.cpp.o Debug/main.cpp.o Debug/game_piece.cpp.o
+Debug/queen.cpp.o Debug/Bishop.cpp.o Debug/GameBoard.cpp.o Debug/Rook.cpp.o Debug/king.cpp.o Debug/pawn.cpp.o Debug/game.cpp.o Debug/knight.cpp.o Debug/main.cpp.o Debug/GamePiece.cpp.o

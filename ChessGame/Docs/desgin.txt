@@ -1,0 +1,54 @@
+Working chess game
+
+Abstract class game_piece
+Virtual function move()
+Virtual Function take()
+	King
+		function in_check(): King cannot end turn if any opponent's piece can reach him.
+			function checkmate(): If there is no move that can be made by the current player to take the King our of check, the opponent wins the game.
+		move(): King can move 1 space in any direction.
+		take(): King can take pieces from 1 space away in any direciton.
+	Queen
+		move(): Queen can move an unlimited numper of spaces in any direction, but cannot move through units.
+		take(): Queen can take pieces controlled by the opposing player from any space they can move to.
+	Bishop
+		move(): Bishop can move an unlimited number of spaces in any diagonal direction, but cannot move through units.
+		take(): Bishop can take pieces controlled by the opposing player from any space they can move to.
+	Knight
+		move(): Knight can move 2 in any horizontal axis, +1 along the opposite horizontal axis.  Knight can move through any units.
+		take(): Knight can take pieces controlled by the opposing player from any space they can move to.
+	Rook
+		move(): Rook can move an unlimited number of spaces in any horizontal direction, but cannot move through units.
+		take(): Rook can take pieces controlled by the opposing player from any space they can move to.
+	Pawn
+		move(): If pawn is in starting position, pawn can move 1 or 2 spaces forward. Else, pawn can move 1 space forward. Pawn cannot move through units.
+		take(): Pawn can take pieces controlled by the opposing player from either space 1 square diagonally in front of it.
+		game_piece transform(pawn): If a pawn makes it to the opposite end of the board, change the piece to any other piece, other thank King, the controlling player chooses.
+		bool starting_position;
+
+
+
+
+class gameboard
+	Array of 8 Arrays of 8, each containing a map.
+		A designation (String letter/number pair to denote position) and a color (black/white)
+	Each element of the array can contain a piece ((K)ing, (Q)ueen, (B)ishop, (H)orse, as a standin for knight, (R)ook, (P)awn), or be empty.
+
+void take_turn()
+while game_over() is false:
+	determine player
+	forfeit option is available during every stake of player's turn
+	player enters piece to move
+	Player is given a list of valid moves
+	player enters location to move to
+	next turn
+	
+bool game_over()
+	if any player forfeits, return true
+	if any player's king is in check mate, return true.
+	if the only remaining pieces on the board are kings, return true
+	else, return false.
+	
+
+void print_board()
+	Do a for loop with, and for each format a square, print the square's contents, finish the square, until the board is done.

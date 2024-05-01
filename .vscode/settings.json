@@ -1,0 +1,14 @@
+{
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "home:\\Gideon\\wanlessPersonalProjects\\wanless-chess-game\\ChessGame",
+            "binaryPath": "home:\\Gideon\\wanlessPersonalProjects\\wanless-chess-game\\ChessGame\\a.out",
+            "binaryArgs": []
+        },
+        {
+            "cwd": "home:\\Gideon\\wanlessPersonalProjects\\wanless-chess-game\\ChessGame\\Debug",
+            "binaryPath": "home:\\Gideon\\wanlessPersonalProjects\\wanless-chess-game\\ChessGame\\Debug\\ChessGame.exe",
+            "binaryArgs": []
+        }
+    ]
+}

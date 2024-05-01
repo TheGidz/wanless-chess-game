@@ -36,7 +36,7 @@ ArchiveOutputSwitch    :=
 PreprocessOnlySwitch   :=-E
 ObjectsFileList        :="ChessGame.txt"
 PCHCompileFlags        :=
-MakeDirCommand         :=makedir
+MakeDirCommand         :=mkdir -p
 RcCmpOptions           := 
 RcCompilerName         :=windres
 LinkOptions            :=  -O0
@@ -51,20 +51,20 @@ LibPath                := $(LibraryPathSwitch). $(LibraryPathSwitch). $(LibraryP
 ## Common variables
 ## AR, CXX, CC, AS, CXXFLAGS and CFLAGS can be overridden using an environment variable
 ##
-AR       := C:/cygwin64/bin/x86_64-pc-cygwin-ar.exe rcu
-CXX      := C:/cygwin64/bin/x86_64-pc-cygwin-g++.exe
-CC       := C:/cygwin64/bin/x86_64-pc-cygwin-gcc.exe
+AR       := C:/cygwin64/bin/ar.exe rcu
+CXX      := C:/cygwin64/bin/g++.exe
+CC       := C:/cygwin64/bin/gcc.exe
 CXXFLAGS :=  -std=c++11 -g -Wall $(Preprocessors)
 CFLAGS   :=   $(Preprocessors)
 ASFLAGS  := 
-AS       := C:/cygwin64/bin/x86_64-pc-cygwin-as.exe
+AS       := C:/cygwin64/bin/as.exe
 
 
 ##
 ## User defined environment variables
 ##
 CodeLiteDir:=C:\Program Files\CodeLite
-Objects0=$(IntermediateDirectory)/bishop.cpp$(ObjectSuffix) $(IntermediateDirectory)/queen.cpp$(ObjectSuffix) $(IntermediateDirectory)/game_board.cpp$(ObjectSuffix) $(IntermediateDirectory)/rook.cpp$(ObjectSuffix) $(IntermediateDirectory)/king.cpp$(ObjectSuffix) $(IntermediateDirectory)/pawn.cpp$(ObjectSuffix) $(IntermediateDirectory)/game.cpp$(ObjectSuffix) $(IntermediateDirectory)/knight.cpp$(ObjectSuffix) $(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/game_piece.cpp$(ObjectSuffix) \
+Objects0=$(IntermediateDirectory)/queen.cpp$(ObjectSuffix) $(IntermediateDirectory)/Bishop.cpp$(ObjectSuffix) $(IntermediateDirectory)/GameBoard.cpp$(ObjectSuffix) $(IntermediateDirectory)/Rook.cpp$(ObjectSuffix) $(IntermediateDirectory)/king.cpp$(ObjectSuffix) $(IntermediateDirectory)/pawn.cpp$(ObjectSuffix) $(IntermediateDirectory)/game.cpp$(ObjectSuffix) $(IntermediateDirectory)/knight.cpp$(ObjectSuffix) $(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/GamePiece.cpp$(ObjectSuffix) \
 	
 
 
@@ -96,65 +96,65 @@ PreBuild:
 ##
 ## Objects
 ##
-$(IntermediateDirectory)/bishop.cpp$(ObjectSuffix): bishop.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/bishop.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/bishop.cpp$(DependSuffix) -MM bishop.cpp
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Gideon/Documents/ariClassStuff/CLearning/chessGame/ChessGame/bishop.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/bishop.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/bishop.cpp$(PreprocessSuffix): bishop.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/bishop.cpp$(PreprocessSuffix) bishop.cpp
-
-$(IntermediateDirectory)/queen.cpp$(ObjectSuffix): queen.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/queen.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/queen.cpp$(DependSuffix) -MM queen.cpp
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Gideon/Documents/ariClassStuff/CLearning/chessGame/ChessGame/queen.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/queen.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/queen.cpp$(ObjectSuffix): pieces/src/queen.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/queen.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/queen.cpp$(DependSuffix) -MM pieces/src/Queen.cpp
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/cygwin64/home/Gideon/wanlessPersonalProjects/wanless-chess-game/ChessGame/pieces/src/Queen.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/queen.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/queen.cpp$(PreprocessSuffix): queen.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/queen.cpp$(PreprocessSuffix) queen.cpp
 
-$(IntermediateDirectory)/game_board.cpp$(ObjectSuffix): game_board.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/game_board.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/game_board.cpp$(DependSuffix) -MM game_board.cpp
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Gideon/Documents/ariClassStuff/CLearning/chessGame/ChessGame/game_board.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/game_board.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/game_board.cpp$(PreprocessSuffix): game_board.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/game_board.cpp$(PreprocessSuffix) game_board.cpp
+$(IntermediateDirectory)/Bishop.cpp$(ObjectSuffix): pieces/src/Bishop.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)Bishop.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/Bishop.cpp$(DependSuffix) -MM pieces/src/Bishop.cpp
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/cygwin64/home/Gideon/wanlessPersonalProjects/wanless-chess-game/ChessGame/pieces/src/Bishop.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Bishop.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/Bishop.cpp$(PreprocessSuffix): Bishop.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Bishop.cpp$(PreprocessSuffix) Bishop.cpp
 
-$(IntermediateDirectory)/rook.cpp$(ObjectSuffix): rook.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/rook.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/rook.cpp$(DependSuffix) -MM rook.cpp
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Gideon/Documents/ariClassStuff/CLearning/chessGame/ChessGame/rook.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/rook.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/rook.cpp$(PreprocessSuffix): rook.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/rook.cpp$(PreprocessSuffix) rook.cpp
+$(IntermediateDirectory)/GameBoard.cpp$(ObjectSuffix): src/GameBoard.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/GameBoard.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/GameBoard.cpp$(DependSuffix) -MM src/GameBoard.cpp
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/cygwin64/home/Gideon/wanlessPersonalProjects/wanless-chess-game/ChessGame/src/GameBoard.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/GameBoard.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/GameBoard.cpp$(PreprocessSuffix): GameBoard.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/GameBoard.cpp$(PreprocessSuffix) GameBoard.cpp
 
-$(IntermediateDirectory)/king.cpp$(ObjectSuffix): king.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/king.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/king.cpp$(DependSuffix) -MM king.cpp
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Gideon/Documents/ariClassStuff/CLearning/chessGame/ChessGame/king.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/king.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/Rook.cpp$(ObjectSuffix): pieces/src/Rook.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Rook.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/Rook.cpp$(DependSuffix) -MM pieces/src/Rook.cpp
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/cygwin64/home/Gideon/wanlessPersonalProjects/wanless-chess-game/ChessGame/pieces/src/Rook.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Rook.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/Rook.cpp$(PreprocessSuffix): Rook.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Rook.cpp$(PreprocessSuffix) Rook.cpp
+
+$(IntermediateDirectory)/king.cpp$(ObjectSuffix): pieces/src/king.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/king.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/king.cpp$(DependSuffix) -MM pieces/src/King.cpp
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/cygwin64/home/Gideon/wanlessPersonalProjects/wanless-chess-game/ChessGame/pieces/src/king.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/king.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/king.cpp$(PreprocessSuffix): king.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/king.cpp$(PreprocessSuffix) king.cpp
 
-$(IntermediateDirectory)/pawn.cpp$(ObjectSuffix): pawn.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/pawn.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/pawn.cpp$(DependSuffix) -MM pawn.cpp
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Gideon/Documents/ariClassStuff/CLearning/chessGame/ChessGame/pawn.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/pawn.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/pawn.cpp$(ObjectSuffix): pieces/src/pawn.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/pawn.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/pawn.cpp$(DependSuffix) -MM pieces/src/Pawn.cpp
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/cygwin64/home/Gideon/wanlessPersonalProjects/wanless-chess-game/ChessGame/pieces/src/pawn.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/pawn.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/pawn.cpp$(PreprocessSuffix): pawn.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/pawn.cpp$(PreprocessSuffix) pawn.cpp
 
-$(IntermediateDirectory)/game.cpp$(ObjectSuffix): game.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/game.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/game.cpp$(DependSuffix) -MM game.cpp
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Gideon/Documents/ariClassStuff/CLearning/chessGame/ChessGame/game.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/game.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/game.cpp$(ObjectSuffix): src/game.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/game.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/game.cpp$(DependSuffix) -MM src/Game.cpp
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/cygwin64/home/Gideon/wanlessPersonalProjects/wanless-chess-game/ChessGame/src/game.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/game.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/game.cpp$(PreprocessSuffix): game.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/game.cpp$(PreprocessSuffix) game.cpp
 
-$(IntermediateDirectory)/knight.cpp$(ObjectSuffix): knight.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/knight.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/knight.cpp$(DependSuffix) -MM knight.cpp
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Gideon/Documents/ariClassStuff/CLearning/chessGame/ChessGame/knight.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/knight.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/knight.cpp$(ObjectSuffix): pieces/src/knight.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/knight.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/knight.cpp$(DependSuffix) -MM pieces/src/Knight.cpp
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/cygwin64/home/Gideon/wanlessPersonalProjects/wanless-chess-game/ChessGame/pieces/src/knight.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/knight.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/knight.cpp$(PreprocessSuffix): knight.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/knight.cpp$(PreprocessSuffix) knight.cpp
 
-$(IntermediateDirectory)/main.cpp$(ObjectSuffix): main.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/main.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/main.cpp$(DependSuffix) -MM main.cpp
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Gideon/Documents/ariClassStuff/CLearning/chessGame/ChessGame/main.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/main.cpp$(ObjectSuffix): src/main.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/main.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/main.cpp$(DependSuffix) -MM src/main.cpp
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/cygwin64/home/Gideon/wanlessPersonalProjects/wanless-chess-game/ChessGame/src/main.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/main.cpp$(PreprocessSuffix): main.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/main.cpp$(PreprocessSuffix) main.cpp
 
-$(IntermediateDirectory)/game_piece.cpp$(ObjectSuffix): game_piece.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/game_piece.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/game_piece.cpp$(DependSuffix) -MM game_piece.cpp
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Gideon/Documents/ariClassStuff/CLearning/chessGame/ChessGame/game_piece.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/game_piece.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/game_piece.cpp$(PreprocessSuffix): game_piece.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/game_piece.cpp$(PreprocessSuffix) game_piece.cpp
+$(IntermediateDirectory)/GamePiece.cpp$(ObjectSuffix): pieces/src/GamePiece.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/GamePiece.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/GamePiece.cpp$(DependSuffix) -MM pieces/src/GamePiece.cpp
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/cygwin64/home/Gideon/wanlessPersonalProjects/wanless-chess-game/ChessGame/pieces/src/GamePiece.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/GamePiece.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/GamePiece.cpp$(PreprocessSuffix): GamePiece.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/GamePiece.cpp$(PreprocessSuffix) GamePiece.cpp
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)
