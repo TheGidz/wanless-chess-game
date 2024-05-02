@@ -8,47 +8,51 @@ Bishop::~Bishop()
 {
 }
 
-bool Bishop::moveIsLegal(GamePiece *board[8], int new_row, int new_column, bool verbose)
+bool Bishop::moveIsLegal(GamePiece *board[8], int newRow, int newColumn, bool verbose)
 {
 	// check the bounds of the board first
-	if (!inBounds(new_row, new_column, verbose))
+	if (!inBounds(newRow, newColumn, verbose))
 	{
 		return false;
 	}
 
 	// find the current piece on the board
-	int current_location = -1;
-	int current_row{-1};
-	int current_column{-1};
-	findOnBoard(board, current_location, current_row, current_column);
+	int currentLocation = -1;
+	int currentRow{-1};
+	int currentColumn{-1};
+	findOnBoard(board, currentLocation, currentRow, currentColumn);
 
-	int new_location = (new_row * 8) + new_column;
+	int newLocation = (newRow * 8) + newColumn;
 
-	(verbose) ? std::cout << *this << " from column " << current_column + 1 << ", row " << current_row + 1
-						  << " to column " << new_column + 1 << ", row " << new_row + 1 << std::endl
-			  : std::cout << "";
+	if (verbose)
+	{
+		printf("%s from column %d, row %d to column %d, row %d.", this->getPieceTypeString().c_str(), currentColumn + 1, currentRow + 1, newColumn + 1, newRow + 1);
+	}
 
 	// First, make sure the move is actually a move.
-	if (!doesMove(new_row, new_column, current_row, current_column, verbose))
+	if (!doesMove(newRow, newColumn, currentRow, currentColumn, verbose))
 	{
 		return false;
 	}
 
 	// Next, check to make sure the move is diagonal
-	if ((abs(current_column - new_column)) != (abs(current_row - new_row)))
+	if ((abs(currentColumn - newColumn)) != (abs(currentRow - newRow)))
 	{
-		(verbose) ? std::cout << "Bishops must move diagonally.\n" : std::cout << "";
+		if (verbose)
+		{
+			printf("Bishops must move diagonally.");
+		}
 		return false;
 	}
 
 	// Checks out, see if it's legal diagonal movement
-	if (!legalDiagonal(board, new_row, new_column, current_row, current_column, verbose))
+	if (!legalDiagonal(board, newRow, newColumn, currentRow, currentColumn, verbose))
 	{
 		return false;
 	}
 
 	// Finally, does the move take the player's own piece
-	if (takesOwnPiece(board, new_location, verbose))
+	if (takesOwnPiece(board, newLocation, verbose))
 	{
 		return false;
 	}

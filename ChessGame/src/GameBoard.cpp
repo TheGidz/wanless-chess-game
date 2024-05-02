@@ -56,7 +56,7 @@ void GameBoard::printBoard()
 	printf("\033[2J");
 	// Show the column letters
 	uint8_t letterPos = 11;
-	for (size_t squareIndex = 1; squareIndex <= m_boardSize; squareIndex++)
+	for (uint8_t squareIndex = 1; squareIndex <= m_boardSize; squareIndex++)
 	{
 		char charToPrint = 64;
 		printf("\033[39\033[%d;%dH%c", 0, letterPos + ((squareIndex - 1) * m_squareWidth), (charToPrint + squareIndex));
@@ -64,56 +64,59 @@ void GameBoard::printBoard()
 
 	// Show the row numbers
 	uint8_t numberPos = 4;
-	for (size_t squareIndex = 1; squareIndex <= m_boardSize; squareIndex++)
+	for (uint8_t squareIndex = 1; squareIndex <= m_boardSize; squareIndex++)
 	{
 		char charToPrint = '0';
 		printf("\033[%d;%dH%c", numberPos + ((squareIndex - 1) * m_squareHeight), 0, (charToPrint + squareIndex));
 	}
 
 	// Print the board by squares
-	for (size_t squareHorizontalIndex = 1; squareHorizontalIndex <= m_boardSize; squareHorizontalIndex++)
+	for (uint8_t squareHorizontalIndex = 1; squareHorizontalIndex <= m_boardSize; squareHorizontalIndex++)
 	{
-		for (size_t squareVerticalIndex = 1; squareVerticalIndex <= m_boardSize; squareVerticalIndex++)
+		for (uint8_t squareVerticalIndex = 1; squareVerticalIndex <= m_boardSize; squareVerticalIndex++)
 		{
 			// Set the square colour
 			uint8_t printColourFore = 36;
+			uint8_t printColourBack = 46;
 			if ((squareVerticalIndex + squareHorizontalIndex) % 2 == 1)
 			{
-				printColourFore = 31;
-			} // Red
+				printColourFore = 37;
+				printColourBack = 40;
+			}
 			else
 			{
-				printColourFore = 37;
-			} // White
+				printColourFore = 47;
+				printColourBack = 30;
+			}
 
-			for (size_t squareHeight = 1; squareHeight <= m_squareHeight; squareHeight++)
+			for (uint8_t squareHeight = 1; squareHeight <= m_squareHeight; squareHeight++)
 			{
-				for (size_t squareWidth = 1; squareWidth <= m_squareWidth; squareWidth++)
+				for (uint8_t squareWidth = 1; squareWidth <= m_squareWidth; squareWidth++)
 				{
-					size_t rowOffset = ((squareHorizontalIndex - 1) * m_squareHeight) + m_borderHeight;
-					size_t columnOffset = ((squareVerticalIndex - 1) * m_squareWidth) + m_borderWidth;
-					printf("\033[%dm\033[%d;%dH#", printColourFore, (rowOffset + squareHeight), (columnOffset + squareWidth));
+					uint8_t rowOffset = ((squareHorizontalIndex - 1) * m_squareHeight) + m_borderHeight;
+					uint8_t columnOffset = ((squareVerticalIndex - 1) * m_squareWidth) + m_borderWidth;
+					printf("\033[%dm\033[%dm\033[%d;%dH ", printColourBack, printColourFore, (rowOffset + squareHeight), (columnOffset + squareWidth));
 				}
 			}
 		}
 
 		// Print the pieces which are on the board
-		for (size_t boardHorizInx = 0; boardHorizInx < m_boardSize; boardHorizInx++)
+		for (uint8_t boardHorizInx = 0; boardHorizInx < m_boardSize; boardHorizInx++)
 		{
-			for (size_t boardVertInx = 0; boardVertInx < m_boardSize; boardVertInx++)
+			for (uint8_t boardVertInx = 0; boardVertInx < m_boardSize; boardVertInx++)
 			{
 				if (this->board[boardHorizInx][boardVertInx] != nullptr)
 				{
 					char piece = (this->board[boardHorizInx][boardVertInx]->getPieceTypeChar());
-					uint8_t pieceColour = (this->board[boardHorizInx][boardVertInx]->getOwner() == Player::PLAYER_WHITE) ? 37 : 31;
+					uint8_t pieceColour = (this->board[boardHorizInx][boardVertInx]->getOwner() == Player::PLAYER_WHITE) ? 107 : 100;
 
-					size_t rowOffset = ((boardHorizInx + 1) * m_squareHeight) + m_borderHeight - (m_squareHeight / 2);
-					size_t columnOffset = ((boardVertInx + 1) * m_squareWidth) + m_borderWidth - (m_squareHeight / 2);
+					uint8_t rowOffset = ((boardHorizInx + 1) * m_squareHeight) + m_borderHeight - (m_squareHeight / 2);
+					uint8_t columnOffset = ((boardVertInx + 1) * m_squareWidth) + m_borderWidth - (m_squareHeight / 2);
 
-					printf("\033[%dm\033[%d;%dH%c", pieceColour, (rowOffset), (columnOffset), piece);
+					printf("\033[30m\033[%dm\033[%d;%dH%c", pieceColour, (rowOffset), (columnOffset), piece);
 				}
 			}
 		}
 	}
-	printf("\033[37m\033[%d;%dH", m_boardSize * m_squareHeight + m_borderHeight * 2, 0);
+	printf("\033[37m\033[40m\033[%d;%dH", m_boardSize * m_squareHeight + m_borderHeight * 2, 0);
 }

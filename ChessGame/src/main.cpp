@@ -12,7 +12,7 @@ int main()
 	Game masterGame;
 	GameBoard mainBoard;
 	masterGame.start();
-	std::cout << "Thanks for playing!\n";
+	printf("Thanks for playing!");
 
 	return 0;
 }

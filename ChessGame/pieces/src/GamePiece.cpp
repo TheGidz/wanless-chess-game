@@ -19,7 +19,7 @@ GamePiece::GamePiece(Player player, GamePieceType pieceType) : m_owner{player},
 
 GamePiece::~GamePiece()
 {
-	std::cout << "\t\t" << *this << " has been removed from the board.\n";
+	printf("%s %s has been removed from the board.", this->getOwnerString().c_str(), this->getPieceTypeString().c_str());
 }
 
 bool GamePiece::moveIsLegal(GamePiece *board[8], int column, int row, bool verbose)
@@ -83,16 +83,53 @@ char GamePiece::getPieceTypeChar()
 	return retVal;
 }
 
+std::string GamePiece::getPieceTypeString()
+{
+	std::string retVal = "\0";
+	switch (m_pieceType)
+	{
+	case GAME_PIECE_BISHOP:
+		retVal = "Bishop";
+		break;
+	case GAME_PIECE_QUEEN:
+		retVal = "Queen";
+		break;
+	case GAME_PIECE_KING:
+		retVal = "King";
+		break;
+	case GAME_PIECE_KNIGHT:
+		retVal = "Knight";
+		break;
+	case GAME_PIECE_PAWN:
+		retVal = "Pawn";
+		break;
+	case GAME_PIECE_ROOK:
+		retVal = "Rook";
+		break;
+	default:
+		break;
+	}
+	return retVal;
+}
+
 Player GamePiece::getOwner()
 {
 	return m_owner;
+}
+
+std::string GamePiece::getOwnerString()
+{
+	return (m_owner == Player::PLAYER_WHITE) ? "White" : "Black";
 }
 
 bool GamePiece::inBounds(int row, int column, bool verbose)
 {
 	if (row < 0 || row > 7 || column < 0 || column > 7)
 	{
-		(verbose) ? std::cout << "That move is out of bounds.\n" : std::cout << "";
+		if (verbose)
+		{
+			printf("That move is out of bounds");
+		}
 		return false;
 	}
 	return true;
@@ -102,7 +139,10 @@ bool GamePiece::doesMove(int new_column, int new_row, int current_column, int cu
 {
 	if ((new_column == current_column) && (new_row == current_row))
 	{
-		(verbose) ? std::cout << "The selected piece must move.\n" : std::cout << "";
+		if (verbose)
+		{
+			printf("The selected piece must move");
+		}
 		return false;
 	}
 	return true;
@@ -117,7 +157,10 @@ bool GamePiece::takesOwnPiece(GamePiece *board[8], int new_location, bool verbos
 	}
 	else
 	{
-		(verbose) ? std::cout << "You cannot take your own pieces.\n" : std::cout << "";
+		if (verbose)
+		{
+			printf("You cannot take your own pieces.");
+		}
 		// takes own piece
 		return true;
 	}
@@ -150,7 +193,10 @@ bool GamePiece::legalDiagonal(GamePiece *board[8], int new_row, int new_column, 
 			int temp_location = (i * 8) + j;
 			if (board[temp_location] != nullptr)
 			{
-				(verbose) ? std::cout << "There was something in this piece's way.\n" : std::cout << "";
+				if (verbose)
+				{
+					printf("There was something in this piece's way.");
+				}
 				return false;
 			}
 			j--;
@@ -166,7 +212,10 @@ bool GamePiece::legalDiagonal(GamePiece *board[8], int new_row, int new_column, 
 			int temp_location = (i * 8) + j;
 			if (board[temp_location] != nullptr)
 			{
-				(verbose) ? std::cout << "There was something in this piece's way.\n" : std::cout << "";
+				if (verbose)
+				{
+					printf("There was something in this piece's way.");
+				}
 				return false;
 			}
 			j++;
@@ -182,7 +231,10 @@ bool GamePiece::legalDiagonal(GamePiece *board[8], int new_row, int new_column, 
 			int temp_location = (i * 8) + j;
 			if (board[temp_location] != nullptr)
 			{
-				(verbose) ? std::cout << "There was something in this piece's way.\n" : std::cout << "";
+				if (verbose)
+				{
+					printf("There was something in this piece's way.");
+				}
 				return false;
 			}
 			j++;
@@ -198,7 +250,10 @@ bool GamePiece::legalDiagonal(GamePiece *board[8], int new_row, int new_column, 
 			int temp_location = (i * 8) + j;
 			if (board[temp_location] != nullptr)
 			{
-				(verbose) ? std::cout << "There was something in this piece's way.\n" : std::cout << "";
+				if (verbose)
+				{
+					printf("There was something in this piece's way.");
+				}
 				return false;
 			}
 			j--;
@@ -218,7 +273,10 @@ bool GamePiece::legalStraight(GamePiece *board[8], int new_row, int new_column, 
 				int temp_location = (i * 8) + new_column;
 				if (board[temp_location] != nullptr)
 				{
-					(verbose) ? std::cout << "There was something in this piece's way.\n" : std::cout << "";
+					if (verbose)
+					{
+						printf("There was something in this piece's way.");
+					}
 					return false;
 				}
 			}
@@ -230,7 +288,10 @@ bool GamePiece::legalStraight(GamePiece *board[8], int new_row, int new_column, 
 				int temp_location = (i * 8) + new_column;
 				if (board[temp_location] != nullptr)
 				{
-					(verbose) ? std::cout << "There was something in this piece's way.\n" : std::cout << "";
+					if (verbose)
+					{
+						printf("There was something in this piece's way.");
+					}
 					return false;
 				}
 			}
@@ -247,7 +308,10 @@ bool GamePiece::legalStraight(GamePiece *board[8], int new_row, int new_column, 
 				int temp_location = (new_row * 8) + i;
 				if (board[temp_location] != nullptr)
 				{
-					(verbose) ? std::cout << "There was something in this piece's way.\n" : std::cout << "";
+					if (verbose)
+					{
+						printf("There was something in this piece's way.");
+					}
 					return false;
 				}
 			}
@@ -259,7 +323,10 @@ bool GamePiece::legalStraight(GamePiece *board[8], int new_row, int new_column, 
 				int temp_location = (new_row * 8) + i;
 				if (board[temp_location] != nullptr)
 				{
-					(verbose) ? std::cout << "There was something in this piece's way.\n" : std::cout << "";
+					if (verbose)
+					{
+						printf("There was something in this piece's way.");
+					}
 					return false;
 				}
 			}
@@ -267,7 +334,10 @@ bool GamePiece::legalStraight(GamePiece *board[8], int new_row, int new_column, 
 	}
 	else
 	{
-		(verbose) ? std::cout << "There was something in this piece's way.\n" : std::cout << "";
+		if (verbose)
+		{
+			printf("There was something in this piece's way.");
+		}
 		return false;
 	}
 	return true;

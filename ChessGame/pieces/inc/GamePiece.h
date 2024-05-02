@@ -24,8 +24,10 @@ public:
 	bool getEnPassant();
 	bool getHasMoved();
 	char getPieceTypeChar();
+	std::string getPieceTypeString();
 	GamePieceType getPieceType();
 	Player getOwner();
+	std::string getOwnerString();
 	void setEnPassant(bool setting);
 	void setHasMoved(bool setting);
 	void printPiece(std::ostream &os) const;

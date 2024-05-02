@@ -25,9 +25,10 @@ bool Knight::moveIsLegal(GamePiece *board[8], int newRow, int newColumn, bool ve
 
 	int new_location = (newRow * 8) + newColumn;
 
-	(verbose) ? std::cout << *this << " from column " << currentColumn + 1 << ", row " << currentRow + 1
-						  << " to column " << newColumn + 1 << ", row " << newRow + 1 << std::endl
-			  : std::cout << "";
+	if (verbose)
+	{
+		printf("%s from column %d, row %d to column %d, row %d.", this->getPieceTypeString().c_str(), currentColumn + 1, currentRow + 1, newColumn + 1, newRow + 1);
+	}
 
 	// First, make sure the move is actually a move.
 	if (!doesMove(newRow, newColumn, currentRow, currentColumn, verbose))

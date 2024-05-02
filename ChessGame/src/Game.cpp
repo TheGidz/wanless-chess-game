@@ -13,11 +13,10 @@ void Game::promotion(GameBoard *masterBoard, int endRow, int endColumn)
 {
 	std::string answer;
 	bool validSelection = false;
-	std::cout << "Congratulations, your pawn has reached promotion.\n";
+	printf("Congratulations, your pawn has reached promotion.");
 	do
 	{
-		std::cout << "\n\nWhat kind of piece would you like to promote your pawn to?\n"
-				  << "(R)ook, (H)knight, (B)ishop, (Q)ueen\n";
+		printf("What kind of piece would you like to promote your pawn to?  (R)ook, (H)knight, (B)ishop, (Q)ueen");
 		std::cin >> answer;
 		if (answer.size() == 1)
 		{
@@ -26,38 +25,38 @@ void Game::promotion(GameBoard *masterBoard, int endRow, int endColumn)
 			case 'R':
 				delete masterBoard->board[endRow][endColumn];
 				masterBoard->board[endRow][endColumn] = new Rook{m_playerTurn};
-				std::cout << "You have promoted your pawn to a rook!\n";
+				printf("You have promoted your pawn to a rook!");
 				validSelection = true;
 				break;
 			case 'H':
 				delete masterBoard->board[endRow][endColumn];
 				masterBoard->board[endRow][endColumn] = new Knight{m_playerTurn};
-				std::cout << "You have promoted your pawn to a knight!\n";
+				printf("You have promoted your pawn to a knight!");
 				validSelection = true;
 				break;
 			case 'B':
 				delete masterBoard->board[endRow][endColumn];
 				masterBoard->board[endRow][endColumn] = new Bishop{m_playerTurn};
-				std::cout << "You have promoted your pawn to a bishop!\n";
+				printf("You have promoted your pawn to a bishop!");
 				validSelection = true;
 				break;
 			case 'Q':
 				delete masterBoard->board[endRow][endColumn];
 				masterBoard->board[endRow][endColumn] = new Queen{m_playerTurn};
-				std::cout << "You have promoted your pawn to a queen!\n";
+				printf("You have promoted your pawn to a queen!");
 				validSelection = true;
 				break;
 			case 'K':
-				std::cout << "Nice try, but you cannot promote to King.  Please select a different answer.\n";
+				printf("Nice try, but you cannot promote to King.  Please select a different answer.");
 				break;
 			default:
-				std::cout << "Sorry, I didn't recognize that answer.  Please make sure it's from the list of options.\n";
+				printf("Sorry, I didn't recognize that answer.  Please make sure it's from the list of options.");
 				break;
 			}
 		}
 		else
 		{
-			std::cout << "Sorry, I didn't recognize that answer.  Please make sure it's only 1 character long.\n";
+			printf("Sorry, I didn't recognize that answer.  Please make sure it's only 1 character long.");
 		}
 	} while (!validSelection);
 }
@@ -72,11 +71,11 @@ process:
 		std::cin >> userInput;
 		if (!(userInput.size() == 2))
 		{
-			std::cout << "That was not a valid choice, your input needs to be exactly 2 characters long.  Please try again.\n";
+			printf("That was not a valid choice, your input needs to be exactly 2 characters long.  Please try again.");
 		}
 		else if (((isdigit(userInput.at(0))) && (isdigit(userInput.at(1)))) || ((isalpha(userInput.at(0))) && (isalpha(userInput.at(1)))))
 		{
-			std::cout << "That was not a valid choice, your input needs to be exactly 1 letter, and 1 number.  Please try again.\n";
+			printf("That was not a valid choice, your input needs to be exactly 1 letter, and 1 number.  Please try again.");
 		}
 		else
 		{
@@ -97,7 +96,7 @@ process:
 	}
 	if ((row > 7) || (row < 0))
 	{
-		std::cout << "That was not a valid choice, your input needs contain a number between 1 and 8.\n";
+		printf("That was not a valid choice, your input needs contain a number between 1 and 8.");
 		verify = false;
 		goto process;
 	}
@@ -138,7 +137,7 @@ process:
 	}
 	else
 	{
-		std::cout << "That was not a valid choice, your input needs contain a letter between A and H.\n";
+		printf("That was not a valid choice, your input needs contain a letter between A and H.");
 		verify = false;
 		goto process;
 	}
@@ -261,7 +260,10 @@ bool Game::makeMove(GameBoard *masterBoard, int startRow, int startColumn, int e
 				masterBoard->board[endRow][endColumn]->setHasMoved(true);
 				if (temp2 != nullptr)
 				{
-					std::cout << *masterBoard->board[endRow][endColumn] << " has taken " << *temp2 << std::endl;
+					printf("%s %s has taken %s %s", masterBoard->board[endRow][endColumn]->getOwnerString().c_str(),
+						   masterBoard->board[endRow][endColumn]->getPieceTypeString().c_str(),
+						   temp2->getOwnerString().c_str(),
+						   temp2->getPieceTypeString().c_str());
 					delete temp2;
 				}
 				// Otherwise, if it's just a hypothetical move, put everything back, and clear en passant.
@@ -321,11 +323,11 @@ bool Game::checkmate(Player m_playerTurn, GameBoard *masterBoard)
 		// otherwise we're in checkmate.  Declare a winner.
 		if (m_playerTurn == Player::PLAYER_WHITE)
 		{
-			std::cout << "Black is the winner!\n";
+			printf("Black is the winner!");
 		}
 		else if (m_playerTurn == Player::PLAYER_BLACK)
 		{
-			std::cout << "White is the winner!\n";
+			printf("White is the winner!");
 		}
 		return true;
 	}
@@ -361,7 +363,10 @@ bool Game::inCheck(Player m_playerTurn, GameBoard *masterBoard, bool verbose)
 				// check if king's location is a legal move, if it is king is in check
 				if (masterBoard->board[i][j]->moveIsLegal(*masterBoard->board, kingRow, kingColumn, false))
 				{
-					(verbose) ? std::cout << "Your King is in check by: " << *masterBoard->board[i][j] << std::endl : std::cout << "";
+					if (verbose)
+					{
+						printf("Your King is in check by: %s %s", masterBoard->board[i][j]->getOwnerString().c_str(), masterBoard->board[i][j]->getPieceTypeString().c_str());
+					}
 					return true;
 				}
 			}
@@ -390,23 +395,23 @@ void Game::getNextMove(GameBoard *masterBoard)
 	make_selection: // TODO: Remove goto, this is nasty
 		masterBoard->printBoard();
 		std::string player = (m_playerTurn == Player::PLAYER_WHITE) ? "White" : "Red";
-		std::cout << "\nPlease enter the ROW/COLUMN " << player << "'s piece to move is on: ";
+		printf("Please enter the ROW/COLUMN %s's piece to move is on: ", player.c_str());
 		int startRow{-1};
 		int startColumn{-1};
 		processInput(startRow, startColumn);
 
 		if (masterBoard->board[startRow][startColumn] == nullptr)
 		{
-			std::cout << "Error: No piece selected.\n";
+			printf("Error: No piece selected.");
 			goto make_selection;
 		}
 		else if (masterBoard->board[startRow][startColumn]->getOwner() != m_playerTurn)
 		{
-			std::cout << "Error: That is " << masterBoard->board[startRow][startColumn]->getOwner() << "'s piece, not yours.\n";
+			printf("Error: That is %s's piece, not yours.", masterBoard->board[startRow][startColumn]->getOwnerString().c_str());
 			goto make_selection;
 		}
 
-		std::cout << "Please enter the ROW/COLUMN to move your " << masterBoard->board[startRow][startColumn]->getPieceTypeChar() << " to: ";
+		printf("Please enter the ROW/COLUMN to move your %s to: ", masterBoard->board[startRow][startColumn]->getPieceTypeString().c_str());
 		int endRow{-1};
 		int endColumn{-1};
 		processInput(endRow, endColumn);
@@ -423,7 +428,7 @@ void Game::getNextMove(GameBoard *masterBoard)
 		}
 		else
 		{
-			std::cout << "Invalid move.\n";
+			printf("Invalid move.");
 		}
 	} while (!validMove);
 	return;
@@ -434,13 +439,13 @@ void Game::alternateTurn()
 	if (m_playerTurn == Player::PLAYER_WHITE)
 	{
 		m_playerTurn = Player::PLAYER_BLACK;
-		std::cout << "It's now Black's turn.\n";
+		printf("It's now Black's turn.");
 		return;
 	}
 	else if (m_playerTurn == Player::PLAYER_BLACK)
 	{
 		m_playerTurn = Player::PLAYER_WHITE;
-		std::cout << "It's now White's turn.\n";
+		printf("It's now White's turn.");
 		return;
 	}
 	else
@@ -455,14 +460,12 @@ bool Game::gameOver()
 	// Check for checkmate, stalemate, or forfeit.  Return false if none of those are true.
 	if (checkmate(m_playerTurn, &masterBoard))
 	{
-		std::cout << "\n\n			The game has ended in checkmate!\n"
-				  << std::endl;
+		printf("The game has ended in checkmate!");
 		return true;
 	}
 	else if (this->m_stalemate)
 	{
-		std::cout << "\n\n			The game has ended in a stalemate...\n"
-				  << std::endl;
+		printf("The game has ended in a stalemate...");
 		return true;
 	}
 	return false;

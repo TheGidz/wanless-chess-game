@@ -14,11 +14,11 @@
 class GameBoard
 {
 public:
-	static const size_t m_boardSize{8};
-	static const size_t m_squareHeight{3};
-	static const size_t m_squareWidth{3};
-	static const size_t m_borderHeight{2};
-	static const size_t m_borderWidth{8};
+	static const uint8_t m_boardSize{8};
+	static const uint8_t m_squareHeight{3};
+	static const uint8_t m_squareWidth{3};
+	static const uint8_t m_borderHeight{2};
+	static const uint8_t m_borderWidth{8};
 	GameBoard();
 	~GameBoard();
 	void printBoard();
