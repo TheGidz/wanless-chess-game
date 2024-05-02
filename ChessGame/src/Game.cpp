@@ -17,33 +17,33 @@ void Game::promotion(GameBoard *masterBoard, int endRow, int endColumn)
 	do
 	{
 		printf("What kind of piece would you like to promote your pawn to?  (R)ook, (H)knight, (B)ishop, (Q)ueen");
-		std::cin >> answer;
-		if (answer.size() == 1)
+		std::cin >> answer; // TODO: Replace all cins
+		if (answer.size() > 1)
+		{
+			printf("Sorry, I didn't recognize that answer.  Please make sure it's only 1 character long.");
+		}
+		else
 		{
 			switch (toupper(answer.at(0))) // TODO: This could be streamlined
 			{
 			case 'R':
 				delete masterBoard->board[endRow][endColumn];
 				masterBoard->board[endRow][endColumn] = new Rook{m_playerTurn};
-				printf("You have promoted your pawn to a rook!");
 				validSelection = true;
 				break;
 			case 'H':
 				delete masterBoard->board[endRow][endColumn];
 				masterBoard->board[endRow][endColumn] = new Knight{m_playerTurn};
-				printf("You have promoted your pawn to a knight!");
 				validSelection = true;
 				break;
 			case 'B':
 				delete masterBoard->board[endRow][endColumn];
 				masterBoard->board[endRow][endColumn] = new Bishop{m_playerTurn};
-				printf("You have promoted your pawn to a bishop!");
 				validSelection = true;
 				break;
 			case 'Q':
 				delete masterBoard->board[endRow][endColumn];
 				masterBoard->board[endRow][endColumn] = new Queen{m_playerTurn};
-				printf("You have promoted your pawn to a queen!");
 				validSelection = true;
 				break;
 			case 'K':
@@ -54,92 +54,69 @@ void Game::promotion(GameBoard *masterBoard, int endRow, int endColumn)
 				break;
 			}
 		}
-		else
-		{
-			printf("Sorry, I didn't recognize that answer.  Please make sure it's only 1 character long.");
-		}
 	} while (!validSelection);
+	printf("You have promoted your pawn to a %s!", masterBoard->board[endRow][endColumn]->getPieceTypeString().c_str());
 }
 
-void Game::processInput(int &row, int &column)
+void Game::processMoveInput(int &row, int &column)
 {
 	std::string userInput;
-	bool verify = false;
-process:
-	do
-	{
-		std::cin >> userInput;
-		if (!(userInput.size() == 2))
-		{
-			printf("That was not a valid choice, your input needs to be exactly 2 characters long.  Please try again.");
-		}
-		else if (((isdigit(userInput.at(0))) && (isdigit(userInput.at(1)))) || ((isalpha(userInput.at(0))) && (isalpha(userInput.at(1)))))
-		{
-			printf("That was not a valid choice, your input needs to be exactly 1 letter, and 1 number.  Please try again.");
-		}
-		else
-		{
-			verify = true;
-		}
-	} while (!verify);
-	verify = false;
+	bool initialProcess = false;
+	bool isDigitAlphaInput = false;
+	bool bothInputsValidated = false;
+	bool isDigitInRange = true;
+	bool isAlphaInRange = true;
+	char alphaChar = '0';
+	char digitChar = '0';
 
-	if (isdigit(userInput.at(0)))
+	while (!bothInputsValidated)
 	{
-		row = userInput.at(0) - '0';
-		row -= 1;
-	}
-	else if (isdigit(userInput.at(1)))
-	{
-		row = userInput.at(1) - '0';
-		row -= 1;
-	}
-	if ((row > 7) || (row < 0))
-	{
-		printf("That was not a valid choice, your input needs contain a number between 1 and 8.");
-		verify = false;
-		goto process;
-	}
+		while (!initialProcess)
+		{
+			std::cin >> userInput; // TODO: Get rid of CIN
+			if (!(userInput.size() == 2))
+			{
+				printf("That was not a valid choice, your input needs to be exactly 2 characters long.  Please try again.");
+			}
+			else if (((isdigit(userInput.at(0))) && (isdigit(userInput.at(1)))) || ((isalpha(userInput.at(0))) && (isalpha(userInput.at(1)))))
+			{
+				printf("That was not a valid choice, your input needs to be exactly 1 letter, and 1 number.  Please try again.");
+			}
+			else
+			{
+				digitChar = (isdigit(userInput.at(0))) ? userInput.at(0) : userInput.at(1);
+				alphaChar = toupper((isdigit(userInput.at(0))) ? userInput.at(1) : userInput.at(0));
+				initialProcess = true;
+			}
+		}
 
-	userInput.at(0) = toupper(userInput.at(0));
-	userInput.at(1) = toupper(userInput.at(1));
-	if (((userInput.at(0)) == 'A') || ((userInput.at(1)) == 'A'))
-	{
-		column = 0;
-	}
-	else if (((userInput.at(0)) == 'B') || ((userInput.at(1)) == 'B'))
-	{
-		column = 1;
-	}
-	else if (((userInput.at(0)) == 'C') || ((userInput.at(1)) == 'C'))
-	{
-		column = 2;
-	}
-	else if (((userInput.at(0)) == 'D') || ((userInput.at(1)) == 'D'))
-	{
-		column = 3;
-	}
-	else if (((userInput.at(0)) == 'E') || ((userInput.at(1)) == 'E'))
-	{
-		column = 4;
-	}
-	else if (((userInput.at(0)) == 'F') || ((userInput.at(1)) == 'F'))
-	{
-		column = 5;
-	}
-	else if (((userInput.at(0)) == 'G') || ((userInput.at(1)) == 'G'))
-	{
-		column = 6;
-	}
-	else if (((userInput.at(0)) == 'H') || ((userInput.at(1)) == 'H'))
-	{
-		column = 7;
-	}
-	else
-	{
-		printf("That was not a valid choice, your input needs contain a letter between A and H.");
-		verify = false;
-		goto process;
+		while (!isDigitAlphaInput)
+		{
+			row = digitChar - '0' - 1;
+
+			if ((row > 7) || (row < 0)) // TODO: Consider not hardcoding this for different board sizes
+			{
+				printf("That was not a valid choice, your input needs contain a number between 1 and 8.\n");
+				printf("You entered: %d\n", row);
+				isDigitInRange = false;
+			}
+
+			column = alphaChar - 'A';
+			if ((column > 7) || (column < 0)) // TODO: Consider not hardcoding this for different board sizes
+			{
+				printf("That was not a valid choice, your input needs contain a letter between A and H.\n");
+				printf("You entered: %d\n", column);
+				isAlphaInRange = false;
+			}
+			if (isAlphaInRange && isDigitInRange)
+			{
+				isDigitAlphaInput = true;
+			}
+		}
+		if (isDigitAlphaInput && initialProcess)
+		{
+			bothInputsValidated = true;
+		}
 	}
 }
 
@@ -375,9 +352,8 @@ bool Game::inCheck(Player m_playerTurn, GameBoard *masterBoard, bool verbose)
 	return false;
 }
 
-void Game::getNextMove(GameBoard *masterBoard)
+void Game::clearEnPassantRisks(GameBoard *masterBoard)
 {
-	// At the start of the player's turn, clear all en passant risks
 	for (int i = 0; i < 8; i++)
 	{
 		for (int j = 0; j < 8; j++)
@@ -388,33 +364,45 @@ void Game::getNextMove(GameBoard *masterBoard)
 			}
 		}
 	}
+}
 
+void Game::getNextMove(GameBoard *masterBoard)
+{
+	// At the start of the player's turn, clear all en passant risks
+	clearEnPassantRisks(masterBoard);
+
+	masterBoard->printBoard();
 	bool validMove = false;
-	do
+	while (!validMove)
 	{
-	make_selection: // TODO: Remove goto, this is nasty
-		masterBoard->printBoard();
-		std::string player = (m_playerTurn == Player::PLAYER_WHITE) ? "White" : "Red";
-		printf("Please enter the ROW/COLUMN %s's piece to move is on: ", player.c_str());
 		int startRow{-1};
 		int startColumn{-1};
-		processInput(startRow, startColumn);
+		std::string player = (m_playerTurn == Player::PLAYER_WHITE) ? "White" : "Black"; // TODO: We have a function for this, but only for pieces
 
-		if (masterBoard->board[startRow][startColumn] == nullptr)
+		bool selectionMade = false;
+		while (!selectionMade)
 		{
-			printf("Error: No piece selected.");
-			goto make_selection;
-		}
-		else if (masterBoard->board[startRow][startColumn]->getOwner() != m_playerTurn)
-		{
-			printf("Error: That is %s's piece, not yours.", masterBoard->board[startRow][startColumn]->getOwnerString().c_str());
-			goto make_selection;
+			printf("Please enter the ROW/COLUMN %s's piece to move is on: ", player.c_str());
+			processMoveInput(startRow, startColumn);
+
+			if (masterBoard->board[startRow][startColumn] == nullptr)
+			{
+				printf("Error: No piece selected.");
+			}
+			else if (masterBoard->board[startRow][startColumn]->getOwner() != m_playerTurn)
+			{
+				printf("Error: That is %s's piece, not yours.", masterBoard->board[startRow][startColumn]->getOwnerString().c_str());
+			}
+			else
+			{
+				selectionMade = true;
+			}
 		}
 
 		printf("Please enter the ROW/COLUMN to move your %s to: ", masterBoard->board[startRow][startColumn]->getPieceTypeString().c_str());
 		int endRow{-1};
 		int endColumn{-1};
-		processInput(endRow, endColumn);
+		processMoveInput(endRow, endColumn);
 
 		// Check if this move is castling, which has its own ruleset
 		if (castle(masterBoard, startRow, startColumn, endRow, endColumn))
@@ -430,7 +418,7 @@ void Game::getNextMove(GameBoard *masterBoard)
 		{
 			printf("Invalid move.");
 		}
-	} while (!validMove);
+	}
 	return;
 }
 

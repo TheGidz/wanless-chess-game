@@ -1,4 +1,5 @@
 #include "../inc/GameBoard.h"
+#include "../inc/Enums.hpp"
 
 GameBoard::GameBoard()
 {
@@ -53,9 +54,8 @@ GameBoard::~GameBoard()
 
 void GameBoard::printBoard()
 {
-	printf("\033[2J");
 	// Show the column letters
-	uint8_t letterPos = 11;
+	uint8_t letterPos = m_borderWidth + 1 + (m_squareWidth / 2);
 	for (uint8_t squareIndex = 1; squareIndex <= m_boardSize; squareIndex++)
 	{
 		char charToPrint = 64;
@@ -63,7 +63,7 @@ void GameBoard::printBoard()
 	}
 
 	// Show the row numbers
-	uint8_t numberPos = 4;
+	uint8_t numberPos = m_borderHeight + 1 + (m_squareHeight / 2);
 	for (uint8_t squareIndex = 1; squareIndex <= m_boardSize; squareIndex++)
 	{
 		char charToPrint = '0';
@@ -76,17 +76,17 @@ void GameBoard::printBoard()
 		for (uint8_t squareVerticalIndex = 1; squareVerticalIndex <= m_boardSize; squareVerticalIndex++)
 		{
 			// Set the square colour
-			uint8_t printColourFore = 36;
-			uint8_t printColourBack = 46;
+			uint8_t printColourFore = 0;
+			uint8_t printColourBack = 0;
 			if ((squareVerticalIndex + squareHorizontalIndex) % 2 == 1)
 			{
-				printColourFore = 37;
-				printColourBack = 40;
+				printColourFore = ColorCode::COLOR_FORE_WHITE;
+				printColourBack = ColorCode::COLOR_BACK_BLACK;
 			}
 			else
 			{
-				printColourFore = 47;
-				printColourBack = 30;
+				printColourFore = COLOR_BACK_WHITE;
+				printColourBack = COLOR_FORE_BLACK;
 			}
 
 			for (uint8_t squareHeight = 1; squareHeight <= m_squareHeight; squareHeight++)
@@ -99,24 +99,25 @@ void GameBoard::printBoard()
 				}
 			}
 		}
-
-		// Print the pieces which are on the board
-		for (uint8_t boardHorizInx = 0; boardHorizInx < m_boardSize; boardHorizInx++)
+	}
+	// Print the pieces which are on the board
+	for (uint8_t boardHorizInx = 0; boardHorizInx < m_boardSize; boardHorizInx++)
+	{
+		for (uint8_t boardVertInx = 0; boardVertInx < m_boardSize; boardVertInx++)
 		{
-			for (uint8_t boardVertInx = 0; boardVertInx < m_boardSize; boardVertInx++)
+			if (this->board[boardHorizInx][boardVertInx] != nullptr)
 			{
-				if (this->board[boardHorizInx][boardVertInx] != nullptr)
-				{
-					char piece = (this->board[boardHorizInx][boardVertInx]->getPieceTypeChar());
-					uint8_t pieceColour = (this->board[boardHorizInx][boardVertInx]->getOwner() == Player::PLAYER_WHITE) ? 107 : 100;
+				char piece = (this->board[boardHorizInx][boardVertInx]->getPieceTypeChar());
+				uint8_t pieceColour = (this->board[boardHorizInx][boardVertInx]->getOwner() == Player::PLAYER_WHITE) ? COLOR_BACK_BRIGHT_WHITE : COLOR_BACK_BRIGHT_BLACK;
 
-					uint8_t rowOffset = ((boardHorizInx + 1) * m_squareHeight) + m_borderHeight - (m_squareHeight / 2);
-					uint8_t columnOffset = ((boardVertInx + 1) * m_squareWidth) + m_borderWidth - (m_squareHeight / 2);
+				uint8_t rowOffset = ((boardHorizInx + 1) * m_squareHeight) + m_borderHeight - (m_squareHeight / 2);
+				uint8_t columnOffset = ((boardVertInx + 1) * m_squareWidth) + m_borderWidth - (m_squareHeight / 2);
 
-					printf("\033[30m\033[%dm\033[%d;%dH%c", pieceColour, (rowOffset), (columnOffset), piece);
-				}
+				printf("\033[30m\033[%dm\033[%d;%dH%c", pieceColour, (rowOffset), (columnOffset), piece);
 			}
 		}
 	}
+
+	// Reset the cursor colour, and put it in position under the board for regular prints
 	printf("\033[37m\033[40m\033[%d;%dH", m_boardSize * m_squareHeight + m_borderHeight * 2, 0);
 }
